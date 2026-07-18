@@ -1,0 +1,87 @@
+{
+	"name": "scoped-search-bar",
+	"version": "0.1.0",
+	"description": "A dependency-free TypeScript scoped search input with multi-select filters",
+	"keywords": [
+		"component",
+		"filter",
+		"search",
+		"typescript",
+		"vanilla"
+	],
+	"homepage": "https://doberkofler.github.io/scoped-search-bar/",
+	"bugs": {
+		"url": "https://github.com/doberkofler/scoped-search-bar/issues"
+	},
+	"license": "MIT",
+	"author": "doberkofler",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/doberkofler/scoped-search-bar.git"
+	},
+	"files": [
+		"dist",
+		"CHANGELOG.md"
+	],
+	"type": "module",
+	"main": "./dist/index.mjs",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.mts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.mts",
+			"import": "./dist/index.mjs",
+			"default": "./dist/index.mjs"
+		},
+		"./styles/scoped-search-bar.css": "./dist/styles/scoped-search-bar.css"
+	},
+	"scripts": {
+		"typecheck": "tsc --noEmit",
+		"lint": "oxlint",
+		"lint:css": "stylelint 'src/{demo,styles}/**/*.css'",
+		"lint:css:fix": "stylelint --fix 'src/{demo,styles}/**/*.css'",
+		"format": "oxfmt --write && stylelint --fix 'src/{demo,styles}/**/*.css'",
+		"format:check": "oxfmt --check",
+		"ci": "pnpm run typecheck && pnpm run lint && pnpm run lint:css && pnpm run format:check && pnpm run build:lib && pnpm run build && pnpm run docs:api && pnpm run test",
+		"test": "vitest run",
+		"release": "release-it",
+		"create-changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
+		"prepare": "husky",
+		"dev": "vite",
+		"build": "vite build",
+		"build:lib": "tsdown",
+		"build:demo": "vite build",
+		"docs:api": "typedoc",
+		"preview": "vite preview",
+		"test:ui": "vitest",
+		"integration-test": "playwright test",
+		"screenshot": "node scripts/screenshot.mjs"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "21.2.1",
+		"@commitlint/config-conventional": "21.2.0",
+		"@playwright/test": "1.61.1",
+		"@tsdown/css": "0.22.9",
+		"@types/node": "26.1.1",
+		"@vitest/browser": "4.1.10",
+		"@vitest/browser-playwright": "4.1.10",
+		"@vitest/coverage-istanbul": "4.1.10",
+		"@vitest/coverage-v8": "4.1.10",
+		"conventional-changelog": "8.1.0",
+		"conventional-changelog-angular": "9.2.1",
+		"eslint-plugin-regexp": "3.1.1",
+		"husky": "9.1.7",
+		"oxfmt": "0.59.0",
+		"oxlint": "1.74.0",
+		"oxlint-tsgolint": "0.25.0",
+		"playwright": "1.61.1",
+		"release-it": "20.2.1",
+		"stylelint": "17.14.0",
+		"stylelint-config-standard": "40.0.0",
+		"tsdown": "0.22.9",
+		"typedoc": "0.28.20",
+		"typescript": "6.0.3",
+		"vite": "8.1.5",
+		"vitest": "4.1.10"
+	}
+}

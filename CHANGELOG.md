@@ -1,0 +1,150 @@
+## [0.12.14](https://github.com/doberkofler/gantt-renderer/compare/v0.12.13...v0.12.14) (2026-07-18)
+
+## [0.12.13](https://github.com/doberkofler/gantt-renderer/compare/v0.12.12...v0.12.13) (2026-07-15)
+
+## [0.12.12](https://github.com/doberkofler/gantt-renderer/compare/v0.12.11...v0.12.12) (2026-07-01)
+
+## [0.12.11](https://github.com/doberkofler/gantt-renderer/compare/v0.12.10...v0.12.11) (2026-06-30)
+
+## [0.12.10](https://github.com/doberkofler/gantt-renderer/compare/v0.12.9...v0.12.10) (2026-06-28)
+
+## [0.12.9](https://github.com/doberkofler/gantt-renderer/compare/v0.12.8...v0.12.9) (2026-06-27)
+
+## [0.12.8](https://github.com/doberkofler/gantt-renderer/compare/v0.12.7...v0.12.8) (2026-06-25)
+
+## [0.12.7](https://github.com/doberkofler/gantt-renderer/compare/v0.12.6...v0.12.7) (2026-06-24)
+
+## [0.12.6](https://github.com/doberkofler/gantt-renderer/compare/v0.12.5...v0.12.6) (2026-06-24)
+
+## [0.12.5](https://github.com/doberkofler/gantt-renderer/compare/v0.12.4...v0.12.5) (2026-06-17)
+
+## [0.12.4](https://github.com/doberkofler/gantt-renderer/compare/v0.12.3...v0.12.4) (2026-06-02)
+
+## [0.12.3](https://github.com/doberkofler/gantt-renderer/compare/v0.12.2...v0.12.3) (2026-05-31)
+
+## [0.12.2](https://github.com/doberkofler/gantt-renderer/compare/v0.12.1...v0.12.2) (2026-05-30)
+
+## [0.12.1](https://github.com/doberkofler/gantt-renderer/compare/v0.12.0...v0.12.1) (2026-05-28)
+
+# [0.12.0](https://github.com/doberkofler/gantt-renderer/compare/v0.11.0...v0.12.0) (2026-05-18)
+
+### Bug Fixes
+
+* **gantt:** align timeline right edge to full scale bucket ([614cd66](https://github.com/doberkofler/gantt-renderer/commit/614cd66e93ae7c7a7c6a71034feafce19299aad7))
+
+# [0.11.0](https://github.com/doberkofler/gantt-renderer/compare/v0.10.0...v0.11.0) (2026-05-13)
+
+### Bug Fixes
+
+* **gantt:** default fireCallback to false on select, collapseAll, and expandAll ([2572d4c](https://github.com/doberkofler/gantt-renderer/commit/2572d4c0c75b672b5f2d98d9a1dfde5fb30a421d))
+
+### Features
+
+* **gantt:** add getOpenStates instance method ([8c8b09c](https://github.com/doberkofler/gantt-renderer/commit/8c8b09cf323b45cc237e969ea190fb7cd7cb5428))
+
+# [0.10.0](https://github.com/doberkofler/gantt-renderer/compare/v0.9.0...v0.10.0) (2026-05-13)
+
+### Features
+
+* **gantt:** add onExpandCollapse/onExpandCollapseAll callbacks and header +/− controls ([652d626](https://github.com/doberkofler/gantt-renderer/commit/652d6261b7d6cdfd74c07acebb54b84708a155b1))
+
+# [0.9.0](https://github.com/doberkofler/gantt-renderer/compare/v0.8.0...v0.9.0) (2026-05-13)
+
+### Features
+
+* **locales:** modular locale system with 43 languages via subpath exports ([4866724](https://github.com/doberkofler/gantt-renderer/commit/48667247005c245fd55b9421012e03ec13d82ba1))
+* **vanilla:** add showTodayMarker option to toggle current-date line ([49ddc0f](https://github.com/doberkofler/gantt-renderer/commit/49ddc0fa1e00356403df286e99df71242cca0b01))
+
+# [0.8.0](https://github.com/doberkofler/gantt-renderer/compare/v0.7.0...v0.8.0) (2026-05-12)
+
+### Bug Fixes
+
+* **gantt:** free actions column space when showAddTaskButton is disabled ([464c5cd](https://github.com/doberkofler/gantt-renderer/commit/464c5cda446828c7a0a8ca2b6e5f6a226f37aef4))
+* **interaction:** remove duplicate dblclick handler causing double callback fire ([df6500a](https://github.com/doberkofler/gantt-renderer/commit/df6500a9be31818f8a79cc94a33326a81793e7e3))
+
+### Features
+
+* **api:** inline zod validation into update(), remove parseGanttInput ([6136fe9](https://github.com/doberkofler/gantt-renderer/commit/6136fe9c732d4d919bfee592633be68eab0e05ef))
+* **demo:** add HTML tooltip with typed custom data to demo app ([401bebc](https://github.com/doberkofler/gantt-renderer/commit/401bebc190145cf30dd96e6e67e0c76867028114))
+
+### BREAKING CHANGES
+
+* **api:** Remove the public parseGanttInput() function and all
+  zod schema exports. Pass raw data directly to GanttChart.update() —
+  validation, defaults, and duplicate detection now happen internally.
+  GanttInputRaw uses readonly arrays so as const data is accepted
+  without casts.
+
+# [0.7.0](https://github.com/doberkofler/gantt-renderer/compare/v0.6.0...v0.7.0) (2026-05-11)
+
+### Features
+
+* **types:** make GanttInputRaw and parseGanttInput generic ([e665221](https://github.com/doberkofler/gantt-renderer/commit/e665221cd13ed58138770365079884cfcc5067fe))
+
+# [0.6.0](https://github.com/doberkofler/gantt-renderer/compare/v0.5.0...v0.6.0) (2026-05-11)
+
+### Features
+
+* **gantt:** simplify default grid columns and add showAddTaskButton option ([800c3cd](https://github.com/doberkofler/gantt-renderer/commit/800c3cdb02d42dfc266823e1d56c0c6cd0eaf009))
+* **locale:** add built-in locale constants for 9 languages ([712254a](https://github.com/doberkofler/gantt-renderer/commit/712254acecc4110ad53de9de14833b2feb1ef16f))
+* **types:** add generic type params to Task, Link, GanttInput, GanttChart ([561ebcf](https://github.com/doberkofler/gantt-renderer/commit/561ebcf01dd1610f0f80739bd29509a05e7848c5))
+
+# [0.5.0](https://github.com/doberkofler/gantt-renderer/compare/v0.4.0...v0.5.0) (2026-05-09)
+
+### Features
+
+* add newEndDate to onTaskMove and newStartDate/newEndDate to onTaskResize callbacks ([e5fc91e](https://github.com/doberkofler/gantt-renderer/commit/e5fc91e6200c76b27db8c09aa1821765105317fa))
+
+# [0.4.0](https://github.com/doberkofler/gantt-renderer/compare/v0.2.0...v0.4.0) (2026-05-09)
+
+### Bug Fixes
+
+* correct link routing geometry and dependency layer rendering ([d00de8a](https://github.com/doberkofler/gantt-renderer/commit/d00de8a8b51d69b7b50ec4c6bf0ce6dd3657e1a8))
+* improve lint rules ([1644377](https://github.com/doberkofler/gantt-renderer/commit/1644377da0294838a77386ac4d74832c289fcbfb))
+* **interaction:** deep-clone input in update() to prevent drag mutations leaking to consumer data ([ce814a0](https://github.com/doberkofler/gantt-renderer/commit/ce814a02bb87230108635ae663f165497f522f7e)), closes [#patchTask](https://github.com/doberkofler/gantt-renderer/issues/patchTask)
+* prevent spurious onTaskMove callback on double-click in timeline ([14976d0](https://github.com/doberkofler/gantt-renderer/commit/14976d0ca8e17bf0b47b34a91e184513e316e811))
+* **rendering:** offset multi-row link midpoint to avoid bar center slicing ([1fe09fa](https://github.com/doberkofler/gantt-renderer/commit/1fe09fa3d736cf948035c4f1619f398fa374464d))
+
+### Features
+
+* add custom tooltip support with onTooltipText callback ([eacc7a8](https://github.com/doberkofler/gantt-renderer/commit/eacc7a845d346f007b4c7ad5a9ed901f9d2e8d60))
+* add readonly support for tasks and links ([48cd946](https://github.com/doberkofler/gantt-renderer/commit/48cd946fe0b22bbcba18cb6b8e04d62d285300a0))
+* **interaction:** add progress bar drag with progressDragEnabled option ([77833b5](https://github.com/doberkofler/gantt-renderer/commit/77833b50b5984158bd9a2ab3ddcc744d05ccb18f))
+
+# [0.2.0](https://github.com/doberkofler/gantt-renderer/compare/v0.1.3...v0.2.0) (2026-05-07)
+
+* refactor(domain)!: rename duration to durationHours (days → hours) ([eb7a554](https://github.com/doberkofler/gantt-renderer/commit/eb7a5549e38ac3e36bb6ee47b66433e67ea9d78f))
+
+### Bug Fixes
+
+* **api:** type parseGanttInput parameter as GanttInputRaw instead of unknown ([d12d96b](https://github.com/doberkofler/gantt-renderer/commit/d12d96b838b0670a668d313efc61bd02c55efa36))
+* **rightPane:** offset absoluteLayer below timeline header to align bars with grid rows ([25f2785](https://github.com/doberkofler/gantt-renderer/commit/25f278561b4a789f0daf633436f6c95f4bae5ec9))
+
+### BREAKING CHANGES
+
+* Task duration field renamed from `duration` (days) to
+  `durationHours` (hours). Durations are now integer hours; `0` = milestone.
+  Added addHours/diffHours to dateMath. PixelMapper, layoutEngine, drag
+  interactions, demo data, and all test fixtures updated accordingly.
+
+## [0.1.3](https://github.com/doberkofler/gantt-renderer/compare/v0.1.2...v0.1.3) (2026-05-07)
+
+### Features
+
+* **demo:** add locale selector to demo control panel ([c45a353](https://github.com/doberkofler/gantt-renderer/commit/c45a353248fea61d9d498eca73ae9088dcb608c5))
+* **gantt-chart:** add special-day indicator dots to timeline header cells ([6570ddb](https://github.com/doberkofler/gantt-renderer/commit/6570ddb77f72b66adfe368de0a1b922a7e007035))
+
+## [0.1.2](https://github.com/doberkofler/gantt-renderer/compare/v0.1.1...v0.1.2) (2026-05-07)
+
+### Bug Fixes
+
+* improve the documentation ([948cbf6](https://github.com/doberkofler/gantt-renderer/commit/948cbf62e25272116eea54ef03bf5d5ef522cfe8))
+
+## [0.1.1](https://github.com/doberkofler/gantt-renderer/compare/v0.1.0...v0.1.1) (2026-05-07)
+
+### Bug Fixes
+
+* improve the documentation ([98895eb](https://github.com/doberkofler/gantt-renderer/commit/98895eb57259064fe8b2a6022ea03758e3319df0))
+* improve the documentation ([8b50d7b](https://github.com/doberkofler/gantt-renderer/commit/8b50d7b626fa9e3fa1869b955bd583403ee1ba35))
+
+# 0.1.0 (2026-05-06)
