@@ -47,6 +47,53 @@ const instance = new ScopedSearchBar(document.querySelector('#search')!, {
 | `id` | `string` | generated | Prefix for input/menu IDs. |
 | `menuMaxHeight` | `number` | `320` | Menu max height in pixels. |
 
+## React Adapter
+
+The package includes a thin React adapter at `scoped-search-bar/react`. Import styles separately, as with the native component:
+
+```tsx
+import {useRef} from 'react';
+import {ScopedSearchBar} from 'scoped-search-bar/react';
+import type {ScopedSearchBarInstance} from 'scoped-search-bar';
+import 'scoped-search-bar/styles/scoped-search-bar.css';
+
+const scopes = [
+	{id: 'articles', label: 'Articles'},
+	{id: 'users', label: 'Users'},
+	{id: 'docs', label: 'Docs'},
+];
+
+export function Search() {
+	const searchRef = useRef<ScopedSearchBarInstance | null>(null);
+
+	return (
+		<ScopedSearchBar
+			ref={searchRef}
+			scopes={scopes}
+			initialSearchTerm="react"
+			initialSelectedIds={['articles']}
+			onSearch={async (term, selectedScopeIds) => {
+				await fetch('/search', {
+					method: 'POST',
+					body: JSON.stringify({term, selectedScopeIds}),
+				});
+			}}
+		/>
+	);
+}
+```
+
+The adapter creates the native `ScopedSearchBar` when the React component mounts and calls `destroy()` when it unmounts. It exposes the native instance through `ref` for imperative methods such as `search()`, `clearScopes()`, and `setSelectedIds()`.
+
+Most props mirror `ScopedSearchBarOptions` and are captured when the native instance is created. The adapter also supports these setter-backed props after mount:
+
+- `scopes`
+- `disabled`
+- `searchTerm`
+- `selectedIds`
+
+`searchTerm` and `selectedIds` are one-way synchronization props. User edits remain inside the native component unless React sends a new prop value or you read the current state through the instance ref.
+
 ## Search Flow
 
 When the user clicks `Search`, presses Enter in the input, or calls `instance.search()`:

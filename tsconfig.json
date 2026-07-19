@@ -3,9 +3,11 @@
 		"target": "ES2022",
 		"lib": ["ES2022", "DOM", "DOM.Iterable"],
 		"module": "ESNext",
+		"jsx": "react-jsx",
 		"moduleResolution": "bundler",
 		"paths": {
-			"scoped-search-bar": ["./src/lib/index.ts"]
+			"scoped-search-bar": ["./src/lib/index.ts"],
+			"scoped-search-bar/react": ["./src/lib/react.tsx"]
 		},
 		"esModuleInterop": true,
 		"resolveJsonModule": true,
@@ -37,8 +39,10 @@
 	"include": [
 		"src/types/**/*.d.ts",
 		"src/lib/index.ts",
+		"src/lib/react.tsx",
 		"src/lib/scoped-search-bar.ts",
 		"src/lib/scoped-search-bar.test.ts",
+		"src/lib/react.test.tsx",
 		"src/demo/**/*.ts",
 		"scripts/**/*.ts"
 	]

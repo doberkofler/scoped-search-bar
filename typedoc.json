@@ -1,5 +1,5 @@
 {
-	"entryPoints": ["src/lib/index.ts"],
+	"entryPoints": ["src/lib/index.ts", "src/lib/react.tsx"],
 	"out": "docs/api",
 	"exclude": ["**/*.test.ts", "**/*.integration.test.ts", "src/demo/**"],
 	"excludeInternal": true,

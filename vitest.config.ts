@@ -15,7 +15,7 @@ export default defineConfig({
 			instances: [{browser: 'chromium'}, {browser: 'firefox'}, {browser: 'webkit'}],
 			screenshotDirectory: path.join(rootDir, '__screenshots__'),
 		},
-		include: ['src/lib/scoped-search-bar.test.ts'],
+		include: ['src/lib/scoped-search-bar.test.ts', 'src/lib/react.test.tsx'],
 		coverage: {
 			enabled: true,
 			reporter: ['text', 'html', 'lcov'],

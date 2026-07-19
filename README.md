@@ -40,6 +40,36 @@ const search = new ScopedSearchBar(document.querySelector('#search')!, {
 });
 ```
 
+## React Usage
+
+Use the React adapter from the dedicated subpath so vanilla consumers do not load React:
+
+```tsx
+import {ScopedSearchBar} from 'scoped-search-bar/react';
+import 'scoped-search-bar/styles/scoped-search-bar.css';
+
+const scopes = [
+	{id: 'articles', label: 'Articles'},
+	{id: 'users', label: 'Users'},
+	{id: 'docs', label: 'Docs'},
+];
+
+export function Search() {
+	return (
+		<ScopedSearchBar
+			scopes={scopes}
+			initialSelectedIds={['articles']}
+			initialSearchTerm="react"
+			onSearch={async (term, selectedScopeIds) => {
+				console.log(term, selectedScopeIds);
+			}}
+		/>
+	);
+}
+```
+
+The adapter creates the native component on mount and destroys it on unmount. Mount-time options mirror `ScopedSearchBarOptions`; `scopes`, `disabled`, `searchTerm`, and `selectedIds` are synchronized after mount through native setters.
+
 ## API
 
 ```ts
