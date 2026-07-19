@@ -8,6 +8,7 @@ const rootDir = cwd();
 
 export default defineConfig({
 	test: {
+		setupFiles: ['src/lib/test-setup.ts'],
 		browser: {
 			provider: playwright(),
 			enabled: true,
