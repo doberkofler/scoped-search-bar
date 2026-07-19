@@ -1,6 +1,6 @@
 {
 	"name": "scoped-search-bar",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "A dependency-free TypeScript scoped search input with multi-select filters",
 	"keywords": [
 		"component",
