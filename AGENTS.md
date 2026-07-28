@@ -30,10 +30,10 @@ The project uses `pnpm`, `vite`, `tsdown`, `vitest`, `playwright`, `typedoc`, `o
 
 ## Source Layout
 
-- `src/lib/scoped-search-bar.ts` - public component implementation and types.
+- `src/lib/widget.ts` - public component implementation and types.
 - `src/lib/index.ts` - package exports.
-- `src/lib/scoped-search-bar.test.ts` - unit/browser behavior tests.
-- `src/styles/scoped-search-bar.css` - component stylesheet and tokens.
+- `src/lib/widget.test.ts` - unit/browser behavior tests.
+- `src/styles/index.css` - component stylesheet and tokens.
 - `src/demo/app.ts` - Vite demo app.
 - `tests/e2e/scoped-search-bar.e2e-test.ts` - Playwright demo regression tests.
 - `docs/guide.md` - public usage guide.

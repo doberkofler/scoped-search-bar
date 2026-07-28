@@ -1,6 +1,6 @@
 import {afterEach, describe, expect, it, vi} from 'vitest';
 
-import {createScopedSearchBar, ScopedSearchBar, type SearchScope} from './scoped-search-bar.ts';
+import {createScopedSearchBar, ScopedSearchBar, type SearchScope} from './widget.ts';
 
 const SCOPES: readonly SearchScope[] = [
 	{id: 'west-coast', label: 'West Coast'},

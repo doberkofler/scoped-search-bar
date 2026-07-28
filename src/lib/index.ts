@@ -1,11 +1,13 @@
-export {DEFAULT_SCOPED_SEARCH_BAR_OPTIONS, ScopedSearchBar, createScopedSearchBar} from './scoped-search-bar.ts';
-export type {
-	MaybePromise,
-	OnSearch,
-	RequiredVisualOptions,
-	ScopeLabelFormatter,
-	ScopeLabelFormatterContext,
-	ScopedSearchBarInstance,
-	ScopedSearchBarOptions,
-	SearchScope,
-} from './scoped-search-bar.ts';
+export {
+	DEFAULT_SCOPED_SEARCH_BAR_OPTIONS,
+	ScopedSearchBar,
+	createScopedSearchBar,
+	type MaybePromise,
+	type OnSearch,
+	type RequiredVisualOptions,
+	type ScopeLabelFormatter,
+	type ScopeLabelFormatterContext,
+	type ScopedSearchBarInstance,
+	type ScopedSearchBarOptions,
+	type SearchScope,
+} from './widget.ts';

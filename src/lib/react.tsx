@@ -1,6 +1,6 @@
 import {forwardRef, useEffect, useRef, type ForwardedRef, type ReactElement} from 'react';
 
-import {ScopedSearchBar as NativeScopedSearchBar, type OnSearch, type ScopedSearchBarInstance, type ScopedSearchBarOptions} from './scoped-search-bar.ts';
+import {ScopedSearchBar as NativeScopedSearchBar, type OnSearch, type ScopedSearchBarInstance, type ScopedSearchBarOptions} from './widget.ts';
 
 export type ScopedSearchBarReactProps = ScopedSearchBarOptions & {
 	/** Search term synced into the native input after mount. User edits remain internal unless this prop changes. */

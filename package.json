@@ -38,7 +38,7 @@
 			"import": "./dist/react.mjs",
 			"default": "./dist/react.mjs"
 		},
-		"./styles/scoped-search-bar.css": "./dist/styles/scoped-search-bar.css"
+		"./styles.css": "./dist/styles/index.css"
 	},
 	"scripts": {
 		"typecheck": "tsc --noEmit",
@@ -58,6 +58,7 @@
 		"build:demo": "vite build",
 		"docs:api": "typedoc",
 		"preview": "vite preview",
+		"start": "vite preview",
 		"test:ui": "vitest",
 		"integration-test": "playwright test",
 		"screenshot": "node scripts/screenshot.mjs"

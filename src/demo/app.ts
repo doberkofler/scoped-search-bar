@@ -1,5 +1,5 @@
 import {ScopedSearchBar, type ScopedSearchBarInstance, type SearchScope} from '../lib/index.ts';
-import '../styles/scoped-search-bar.css';
+import '../styles/index.css';
 import './demo-shell.css';
 
 const SCOPES: readonly SearchScope[] = [

@@ -10,7 +10,7 @@
 
 ```ts
 import {ScopedSearchBar} from 'scoped-search-bar';
-import 'scoped-search-bar/styles/scoped-search-bar.css';
+import 'scoped-search-bar/styles.css';
 
 const instance = new ScopedSearchBar(document.querySelector('#search')!, {
 	scopes: [
@@ -55,7 +55,7 @@ The package includes a thin React adapter at `scoped-search-bar/react`. Import s
 import {useRef} from 'react';
 import {ScopedSearchBar} from 'scoped-search-bar/react';
 import type {ScopedSearchBarInstance} from 'scoped-search-bar';
-import 'scoped-search-bar/styles/scoped-search-bar.css';
+import 'scoped-search-bar/styles.css';
 
 const scopes = [
 	{id: 'articles', label: 'Articles'},
@@ -120,7 +120,7 @@ Handle errors in your callback if you want to show user-facing messages.
 Import the stylesheet once:
 
 ```ts
-import 'scoped-search-bar/styles/scoped-search-bar.css';
+import 'scoped-search-bar/styles.css';
 ```
 
 Override CSS custom properties from your app:

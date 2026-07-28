@@ -12,7 +12,8 @@ export default defineConfig({
 		},
 	},
 	test: {
-		include: ['src/lib/scoped-search-bar.test.ts'],
+		include: ['src/lib/**/*.test.{ts,tsx}'],
+		setupFiles: ['./src/lib/test-setup.ts'],
 		coverage: {
 			provider: 'v8',
 			reporter: ['text', 'json', 'html', 'lcov'],

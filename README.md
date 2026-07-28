@@ -22,7 +22,7 @@ npm install scoped-search-bar
 
 ```ts
 import {ScopedSearchBar, type SearchScope} from 'scoped-search-bar';
-import 'scoped-search-bar/styles/scoped-search-bar.css';
+import 'scoped-search-bar/styles.css';
 
 const scopes: SearchScope[] = [
 	{id: 'west-coast', label: 'West Coast'},
@@ -46,7 +46,7 @@ Use the React adapter from the dedicated subpath so vanilla consumers do not loa
 
 ```tsx
 import {ScopedSearchBar} from 'scoped-search-bar/react';
-import 'scoped-search-bar/styles/scoped-search-bar.css';
+import 'scoped-search-bar/styles.css';
 
 const scopes = [
 	{id: 'articles', label: 'Articles'},

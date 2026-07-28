@@ -3,7 +3,7 @@ import {createRoot, type Root} from 'react-dom/client';
 import {afterEach, describe, expect, it, vi} from 'vitest';
 
 import {ScopedSearchBar, type ScopedSearchBarReactProps} from './react.tsx';
-import {type ScopedSearchBarInstance, type SearchScope} from './scoped-search-bar.ts';
+import {type ScopedSearchBarInstance, type SearchScope} from './widget.ts';
 
 type RenderProps = Partial<ComponentPropsWithRef<typeof ScopedSearchBar>>;
 
