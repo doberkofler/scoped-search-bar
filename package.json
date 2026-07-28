@@ -1,6 +1,7 @@
 {
 	"name": "scoped-search-bar",
 	"version": "0.2.0",
+	"private": false,
 	"description": "A dependency-free TypeScript scoped search input with multi-select filters",
 	"keywords": [
 		"component",
@@ -100,6 +101,7 @@
 	"peerDependencies": {
 		"react": ">=18.0.0"
 	},
+	"packageManager": "pnpm@11.16.0",
 	"create-template-project": {
 		"template": "web-widget"
 	}
