@@ -7,48 +7,49 @@ on:
     branches: [main]
 
 jobs:
-  ci:
+  build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-      - uses: ./.github/actions/setup
-      - run: pnpm exec playwright install --with-deps
-      - run: pnpm run ci
-        env:
-          CI: true
 
-  integration-test:
-    needs: [ci]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-      - uses: ./.github/actions/setup
-      - run: pnpm exec playwright install --with-deps
-      - run: pnpm run integration-test
-        env:
-          CI: true
+    strategy:
+      matrix:
+        node-version: [22.x, 24.x]
 
-  deploy:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: [integration-test]
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v5
-      - uses: ./.github/actions/setup
-      - run: pnpm run build --base=/scoped-search-bar/
-      - run: pnpm run docs:api
-      - run: mkdir -p dist-demo/docs && mv docs/api dist-demo/docs/api
+      - name: Checkout
+        uses: actions/checkout@v7
 
-      - uses: actions/upload-pages-artifact@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6.0.9
         with:
-          path: dist-demo
+          version: 9
+          run_install: false
 
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+
+      - name: Verify pnpm
+        run: pnpm --version
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright Browsers & Deps
+        run: npx playwright install --with-deps chromium
+
+      - name: Lint
+        run: pnpm run lint
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Unit test
+        run: pnpm run test
+
+      - name: Coveralls GitHub Action
+        uses: coverallsapp/github-action@v2
+
+      - name: Integration test
+        run: pnpm run integration-test

@@ -4,20 +4,20 @@
 
 :root {
 	--demo-bg: #eef3f8;
-	--demo-card: rgba(255, 255, 255, 0.86);
-	--demo-border: rgba(126, 144, 168, 0.24);
+	--demo-card: rgb(255, 255, 255, 0.86);
+	--demo-border: rgb(126, 144, 168, 0.24);
 	--demo-text: #142033;
 	--demo-muted: #65758b;
-	--demo-shadow: 0 24px 80px rgba(25, 42, 70, 0.18);
+	--demo-shadow: 0 24px 80px rgb(25, 42, 70, 0.18);
 }
 
 :root[data-theme="dark"] {
 	--demo-bg: #101722;
-	--demo-card: rgba(22, 31, 45, 0.88);
-	--demo-border: rgba(130, 152, 184, 0.24);
+	--demo-card: rgb(22, 31, 45, 0.88);
+	--demo-border: rgb(130, 152, 184, 0.24);
 	--demo-text: #edf4ff;
 	--demo-muted: #a7b4c7;
-	--demo-shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+	--demo-shadow: 0 24px 80px rgb(0, 0, 0, 0.42);
 	--scoped-search-bar-bg: #151f2d;
 	--scoped-search-bar-bg-muted: #1f2c3e;
 	--scoped-search-bar-border-muted: #314158;
@@ -33,14 +33,14 @@ body {
 	font-family: Inter, "Segoe UI", system-ui, sans-serif;
 	color: var(--demo-text);
 	background:
-		radial-gradient(circle at 15% 10%, rgba(42, 118, 194, 0.28), transparent 34%),
-		radial-gradient(circle at 85% 18%, rgba(55, 190, 170, 0.22), transparent 30%), linear-gradient(135deg, var(--demo-bg), #f9fbfd);
+		radial-gradient(circle at 15% 10%, rgb(42, 118, 194, 0.28), transparent 34%), radial-gradient(circle at 85% 18%, rgb(55, 190, 170, 0.22), transparent 30%),
+		linear-gradient(135deg, var(--demo-bg), #f9fbfd);
 }
 
 :root[data-theme="dark"] body {
 	background:
-		radial-gradient(circle at 15% 10%, rgba(42, 118, 194, 0.24), transparent 34%),
-		radial-gradient(circle at 85% 18%, rgba(55, 190, 170, 0.16), transparent 30%), linear-gradient(135deg, var(--demo-bg), #0a1018);
+		radial-gradient(circle at 15% 10%, rgb(42, 118, 194, 0.24), transparent 34%), radial-gradient(circle at 85% 18%, rgb(55, 190, 170, 0.16), transparent 30%),
+		linear-gradient(135deg, var(--demo-bg), #0a1018);
 }
 
 .demo-shell {
@@ -90,11 +90,11 @@ body {
 	padding: clamp(16px, 4vw, 34px);
 	border: 1px solid var(--demo-border);
 	border-radius: 24px;
-	background: rgba(255, 255, 255, 0.56);
+	background: rgb(255, 255, 255, 0.56);
 }
 
 :root[data-theme="dark"] .demo-card {
-	background: rgba(8, 13, 20, 0.3);
+	background: rgb(8, 13, 20, 0.3);
 }
 
 .demo-panel {
@@ -119,7 +119,7 @@ body {
 	font: inherit;
 	font-weight: 700;
 	color: var(--demo-text);
-	background: rgba(255, 255, 255, 0.72);
+	background: rgb(255, 255, 255, 0.72);
 	cursor: pointer;
 }
 
@@ -128,7 +128,7 @@ body {
 }
 
 :root[data-theme="dark"] .demo-btn {
-	background: rgba(255, 255, 255, 0.08);
+	background: rgb(255, 255, 255, 0.08);
 }
 
 .demo-log-label {
@@ -156,11 +156,11 @@ body {
 		"Courier New",
 		monospace;
 	color: var(--demo-text);
-	background: rgba(255, 255, 255, 0.62);
+	background: rgb(255, 255, 255, 0.62);
 }
 
 :root[data-theme="dark"] .demo-event-log {
-	background: rgba(0, 0, 0, 0.22);
+	background: rgb(0, 0, 0, 0.22);
 }
 
 @media (width <= 760px) {

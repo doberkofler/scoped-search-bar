@@ -1,5 +1,4 @@
 {
-	"$schema": "https://unpkg.com/release-it/schema/release-it.json",
 	"npm": {
 		"publish": false
 	},
