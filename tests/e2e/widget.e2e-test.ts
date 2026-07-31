@@ -1,6 +1,6 @@
 import {expect, test} from '@playwright/test';
 
-test.describe('ScopedSearchBar demo', () => {
+test.describe('Widget demo', () => {
 	test.beforeEach(async ({page}) => {
 		await page.goto('/');
 	});

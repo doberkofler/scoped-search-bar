@@ -35,7 +35,7 @@ The project uses `pnpm`, `vite`, `tsdown`, `vitest`, `playwright`, `typedoc`, `o
 - `src/lib/widget.test.ts` - unit/browser behavior tests.
 - `src/styles/index.css` - component stylesheet and tokens.
 - `src/demo/app.ts` - Vite demo app.
-- `tests/e2e/scoped-search-bar.e2e-test.ts` - Playwright demo regression tests.
+- `tests/e2e/widget.e2e-test.ts` - Playwright demo regression tests.
 - `docs/guide.md` - public usage guide.
 
 ## Code Style
