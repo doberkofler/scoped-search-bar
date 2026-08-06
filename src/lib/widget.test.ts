@@ -266,4 +266,32 @@ describe('ScopedSearchBar', () => {
 
 		expect(() => instance.getSearchTerm()).toThrow('ScopedSearchBar instance has been destroyed');
 	});
+
+	it('defaults data-theme to "system" on the root element', () => {
+		mount();
+
+		expect(document.querySelector<HTMLElement>('.scoped-search-bar')?.dataset['theme']).toBe('system');
+	});
+
+	it('sets data-theme="dark" on the root element when theme is "dark"', () => {
+		mount({theme: 'dark'});
+
+		expect(document.querySelector<HTMLElement>('.scoped-search-bar')?.dataset['theme']).toBe('dark');
+	});
+
+	it('sets data-theme="light" on the root element when theme is "light"', () => {
+		mount({theme: 'light'});
+
+		expect(document.querySelector<HTMLElement>('.scoped-search-bar')?.dataset['theme']).toBe('light');
+	});
+
+	it('setTheme() updates the data-theme attribute', () => {
+		const instance = mount({theme: 'light'});
+
+		instance.setTheme('dark');
+		expect(document.querySelector<HTMLElement>('.scoped-search-bar')?.dataset['theme']).toBe('dark');
+
+		instance.setTheme('system');
+		expect(document.querySelector<HTMLElement>('.scoped-search-bar')?.dataset['theme']).toBe('system');
+	});
 });

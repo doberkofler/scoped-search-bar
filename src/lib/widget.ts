@@ -1,3 +1,5 @@
+export type ThemeMode = 'light' | 'dark' | 'system';
+
 export type MaybePromise<T> = T | Promise<T>;
 
 /** A selectable search scope shown in the dropdown menu. */
@@ -46,6 +48,8 @@ export type ScopedSearchBarOptions = {
 	readonly id?: string;
 	/** Maximum menu height in pixels before vertical scrolling. */
 	readonly menuMaxHeight?: number;
+	/** Controls light/dark/system theme. Defaults to 'system'. */
+	readonly theme?: ThemeMode;
 };
 
 export type ScopedSearchBarInstance = {
@@ -61,6 +65,7 @@ export type ScopedSearchBarInstance = {
 	setSelectedIds: (ids: readonly string[]) => void;
 	getSearchTerm: () => string;
 	getSelectedIds: () => readonly string[];
+	setTheme: (theme: ThemeMode) => void;
 };
 
 export type RequiredVisualOptions = Required<
@@ -156,6 +161,7 @@ export class ScopedSearchBar implements ScopedSearchBarInstance {
 		this.element = document.createElement('div');
 		this.element.className = ['scoped-search-bar', options.className].filter(Boolean).join(' ');
 		this.element.dataset['component'] = 'ScopedSearchBar';
+		this.element.dataset['theme'] = options.theme ?? 'system';
 
 		const control = document.createElement('div');
 		control.className = 'scoped-search-bar__control';
@@ -267,6 +273,11 @@ export class ScopedSearchBar implements ScopedSearchBarInstance {
 			this.#isMenuOpen = false;
 		}
 		this.#render();
+	}
+
+	public setTheme(theme: ThemeMode): void {
+		this.#assertActive();
+		this.element.dataset['theme'] = theme;
 	}
 
 	public setScopes(scopes: readonly SearchScope[]): void {

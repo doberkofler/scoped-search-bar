@@ -9,9 +9,17 @@
 	--scoped-search-bar-primary: #0a4f8f;
 	--scoped-search-bar-primary-strong: #073b6f;
 	--scoped-search-bar-primary-soft: #d9ecff;
+	--scoped-search-bar-primary-soft-hover: #c5e1ff;
 	--scoped-search-bar-shadow: 0 14px 32px rgb(9, 30, 66, 0.16);
 	--scoped-search-bar-focus: 0 0 0 3px rgb(8, 118, 216, 0.22);
 	--scoped-search-bar-radius: 999px;
+	--scoped-search-bar-icon: #7a8492;
+	--scoped-search-bar-icon-secondary: #4f647a;
+	--scoped-search-bar-submit-text: #fff;
+	--scoped-search-bar-submit-shadow: 0 8px 18px rgb(10, 79, 143, 0.28);
+	--scoped-search-bar-checkbox-border: #707987;
+	--scoped-search-bar-checkbox-bg: #fff;
+	--scoped-search-bar-check-icon: #fff;
 }
 
 .scoped-search-bar {
@@ -41,7 +49,7 @@
 	flex: 0 0 auto;
 	width: 28px;
 	height: 28px;
-	fill: #7a8492;
+	fill: var(--scoped-search-bar-icon);
 }
 
 .scoped-search-bar__input {
@@ -85,7 +93,7 @@
 }
 
 .scoped-search-bar__scope-chip:hover {
-	background: #c5e1ff;
+	background: var(--scoped-search-bar-primary-soft-hover);
 }
 
 .scoped-search-bar__clear-scopes {
@@ -108,7 +116,7 @@
 .scoped-search-bar__clear-icon {
 	width: 16px;
 	height: 16px;
-	fill: #4f647a;
+	fill: var(--scoped-search-bar-icon-secondary);
 }
 
 .scoped-search-bar__submit {
@@ -120,9 +128,9 @@
 	padding: 0 22px;
 	border: 0;
 	border-radius: 999px;
-	color: #fff;
+	color: var(--scoped-search-bar-submit-text);
 	background: linear-gradient(180deg, var(--scoped-search-bar-primary), var(--scoped-search-bar-primary-strong));
-	box-shadow: 0 8px 18px rgb(10, 79, 143, 0.28);
+	box-shadow: var(--scoped-search-bar-submit-shadow);
 	cursor: pointer;
 	white-space: nowrap;
 }
@@ -177,9 +185,9 @@
 	justify-content: center;
 	width: 22px;
 	height: 22px;
-	border: 2px solid #707987;
+	border: 2px solid var(--scoped-search-bar-checkbox-border);
 	border-radius: 3px;
-	background: #fff;
+	background: var(--scoped-search-bar-checkbox-bg);
 }
 
 .scoped-search-bar__menu-item[aria-checked="true"] .scoped-search-bar__checkbox {
@@ -190,7 +198,7 @@
 .scoped-search-bar__check-icon {
 	width: 16px;
 	height: 16px;
-	fill: #fff;
+	fill: var(--scoped-search-bar-check-icon);
 }
 
 .scoped-search-bar--disabled {
@@ -201,6 +209,52 @@
 .scoped-search-bar--disabled .scoped-search-bar__clear-scopes,
 .scoped-search-bar--disabled .scoped-search-bar__submit {
 	cursor: not-allowed;
+}
+
+[data-theme="dark"] {
+	--scoped-search-bar-bg: #1a1b23;
+	--scoped-search-bar-bg-muted: #212231;
+	--scoped-search-bar-border: #2d3044;
+	--scoped-search-bar-border-muted: #252738;
+	--scoped-search-bar-text: #e2e4e9;
+	--scoped-search-bar-text-muted: #8b8fa3;
+	--scoped-search-bar-primary: #5b9bd5;
+	--scoped-search-bar-primary-strong: #3d7fc8;
+	--scoped-search-bar-primary-soft: #1a2740;
+	--scoped-search-bar-primary-soft-hover: #253354;
+	--scoped-search-bar-shadow: 0 14px 32px rgb(0, 0, 0, 0.4);
+	--scoped-search-bar-focus: 0 0 0 3px rgb(91, 155, 213, 0.3);
+	--scoped-search-bar-icon: #8b8fa3;
+	--scoped-search-bar-icon-secondary: #8b8fa3;
+	--scoped-search-bar-submit-text: #e2e4e9;
+	--scoped-search-bar-submit-shadow: 0 8px 18px rgb(0, 0, 0, 0.45);
+	--scoped-search-bar-checkbox-border: #4a4d66;
+	--scoped-search-bar-checkbox-bg: #1a1b23;
+	--scoped-search-bar-check-icon: #e2e4e9;
+}
+
+@media (prefers-color-scheme: dark) {
+	[data-theme="system"] {
+		--scoped-search-bar-bg: #1a1b23;
+		--scoped-search-bar-bg-muted: #212231;
+		--scoped-search-bar-border: #2d3044;
+		--scoped-search-bar-border-muted: #252738;
+		--scoped-search-bar-text: #e2e4e9;
+		--scoped-search-bar-text-muted: #8b8fa3;
+		--scoped-search-bar-primary: #5b9bd5;
+		--scoped-search-bar-primary-strong: #3d7fc8;
+		--scoped-search-bar-primary-soft: #1a2740;
+		--scoped-search-bar-primary-soft-hover: #253354;
+		--scoped-search-bar-shadow: 0 14px 32px rgb(0, 0, 0, 0.4);
+		--scoped-search-bar-focus: 0 0 0 3px rgb(91, 155, 213, 0.3);
+		--scoped-search-bar-icon: #8b8fa3;
+		--scoped-search-bar-icon-secondary: #8b8fa3;
+		--scoped-search-bar-submit-text: #e2e4e9;
+		--scoped-search-bar-submit-shadow: 0 8px 18px rgb(0, 0, 0, 0.45);
+		--scoped-search-bar-checkbox-border: #4a4d66;
+		--scoped-search-bar-checkbox-bg: #1a1b23;
+		--scoped-search-bar-check-icon: #e2e4e9;
+	}
 }
 
 @media (width <= 700px) {

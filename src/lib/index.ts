@@ -10,4 +10,5 @@ export {
 	type ScopedSearchBarInstance,
 	type ScopedSearchBarOptions,
 	type SearchScope,
+	type ThemeMode,
 } from './widget.ts';

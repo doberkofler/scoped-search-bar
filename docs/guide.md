@@ -46,6 +46,7 @@ const instance = new ScopedSearchBar(document.querySelector('#search')!, {
 | `className` | `string` | `undefined` | Extra class added to the root. |
 | `id` | `string` | generated | Prefix for input/menu IDs. |
 | `menuMaxHeight` | `number` | `320` | Menu max height in pixels. |
+| `theme` | `'light' \| 'dark' \| 'system'` | `'system'` | Controls light/dark mode. `'system'` follows the OS preference. |
 
 ## React Adapter
 
@@ -134,6 +135,44 @@ Override CSS custom properties from your app:
 	--scoped-search-bar-radius: 18px;
 }
 ```
+
+### Dark Mode
+
+Set the `theme` option to `'dark'`, `'light'`, or `'system'` (default). The component applies a `data-theme` attribute on its root element. CSS custom property overrides handle the color swap automatically.
+
+```ts
+new ScopedSearchBar(host, {
+	scopes: [...],
+	onSearch: ...,
+	theme: 'dark',
+});
+```
+
+Change the theme at runtime with `instance.setTheme('light')`.
+
+The available CSS custom properties are listed below. Override them to customize the color scheme further:
+
+| Property | Light default | Dark default |
+|---|---|---|
+| `--scoped-search-bar-bg` | `#fff` | `#1a1b23` |
+| `--scoped-search-bar-bg-muted` | `#f6f8fb` | `#212231` |
+| `--scoped-search-bar-border` | `#0876d8` | `#2d3044` |
+| `--scoped-search-bar-border-muted` | `#d7dee8` | `#252738` |
+| `--scoped-search-bar-text` | `#17212f` | `#e2e4e9` |
+| `--scoped-search-bar-text-muted` | `#677489` | `#8b8fa3` |
+| `--scoped-search-bar-primary` | `#0a4f8f` | `#5b9bd5` |
+| `--scoped-search-bar-primary-strong` | `#073b6f` | `#3d7fc8` |
+| `--scoped-search-bar-primary-soft` | `#d9ecff` | `#1a2740` |
+| `--scoped-search-bar-primary-soft-hover` | `#c5e1ff` | `#253354` |
+| `--scoped-search-bar-shadow` | `0 14px 32px rgb(9,30,66,0.16)` | `0 14px 32px rgb(0,0,0,0.4)` |
+| `--scoped-search-bar-focus` | `0 0 0 3px rgb(8,118,216,0.22)` | `0 0 0 3px rgb(91,155,213,0.3)` |
+| `--scoped-search-bar-icon` | `#7a8492` | `#8b8fa3` |
+| `--scoped-search-bar-icon-secondary` | `#4f647a` | `#8b8fa3` |
+| `--scoped-search-bar-submit-text` | `#fff` | `#e2e4e9` |
+| `--scoped-search-bar-submit-shadow` | `0 8px 18px rgb(10,79,143,0.28)` | `0 8px 18px rgb(0,0,0,0.45)` |
+| `--scoped-search-bar-checkbox-border` | `#707987` | `#4a4d66` |
+| `--scoped-search-bar-checkbox-bg` | `#fff` | `#1a1b23` |
+| `--scoped-search-bar-check-icon` | `#fff` | `#e2e4e9` |
 
 Useful state classes:
 

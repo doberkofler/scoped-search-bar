@@ -1,4 +1,4 @@
-import {ScopedSearchBar, type ScopedSearchBarInstance, type SearchScope} from '../lib/index.ts';
+import {ScopedSearchBar, type ScopedSearchBarInstance, type SearchScope, type ThemeMode} from '../lib/index.ts';
 import '../styles/index.css';
 import './demo-shell.css';
 
@@ -46,7 +46,6 @@ function mountSearchBar(): ScopedSearchBarInstance {
 function init(): void {
 	let instance = mountSearchBar();
 	let disabled = false;
-	let darkTheme = false;
 	appendEventLog('demo initialized');
 
 	document.querySelector<HTMLButtonElement>('#reset-btn')?.addEventListener('click', () => {
@@ -70,13 +69,12 @@ function init(): void {
 		appendEventLog(`disabled=${String(disabled)}`);
 	});
 
-	const themeButton = document.querySelector<HTMLButtonElement>('#theme-btn');
-	themeButton?.addEventListener('click', () => {
-		darkTheme = !darkTheme;
-		document.documentElement.dataset['theme'] = darkTheme ? 'dark' : 'light';
-		themeButton.textContent = darkTheme ? 'Light Theme' : 'Dark Theme';
-		themeButton.setAttribute('aria-pressed', darkTheme ? 'true' : 'false');
-		appendEventLog(`theme=${darkTheme ? 'dark' : 'light'}`);
+	const themeSelect = document.querySelector<HTMLSelectElement>('#theme-select');
+	themeSelect?.addEventListener('change', () => {
+		const requested = themeSelect.value as ThemeMode;
+		instance.setTheme(requested);
+		document.documentElement.dataset['theme'] = requested;
+		appendEventLog(`theme=${requested}`);
 	});
 }
 

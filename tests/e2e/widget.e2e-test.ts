@@ -48,8 +48,8 @@ test.describe('Widget demo', () => {
 		await expect(page.locator('.scoped-search-bar__input')).toBeDisabled();
 		await expect(page.locator('#event-log')).toHaveValue(/disabled=true/u);
 
-		await page.locator('#theme-btn').click();
-		await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+		await page.locator('#theme-select').selectOption('dark');
+		await expect(page.locator('.scoped-search-bar')).toHaveAttribute('data-theme', 'dark');
 		await expect(page.locator('#event-log')).toHaveValue(/theme=dark/u);
 	});
 
