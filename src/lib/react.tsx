@@ -25,6 +25,8 @@ export const ScopedSearchBar = forwardRef<ScopedSearchBarInstance, ScopedSearchB
 	const hostRef = useRef<HTMLDivElement | null>(null);
 	const instanceRef = useRef<ScopedSearchBarInstance | null>(null);
 	const onSearchRef = useRef<OnSearch>(onSearch);
+	const mountPropsRef = useRef({mountOptions, disabled, searchTerm, selectedIds, scopes});
+	const forwardedRef = useRef(ref);
 
 	useEffect((): void => {
 		onSearchRef.current = onSearch;
@@ -35,12 +37,14 @@ export const ScopedSearchBar = forwardRef<ScopedSearchBarInstance, ScopedSearchB
 		if (host === null) {
 			return;
 		}
+		const mountProps = mountPropsRef.current;
+		const mountedRef = forwardedRef.current;
 		const options: ScopedSearchBarOptions = {
-			...mountOptions,
-			...(disabled === undefined ? {} : {disabled}),
-			...(searchTerm === undefined ? {} : {initialSearchTerm: searchTerm}),
-			...(selectedIds === undefined ? {} : {initialSelectedIds: selectedIds}),
-			scopes,
+			...mountProps.mountOptions,
+			...(mountProps.disabled === undefined ? {} : {disabled: mountProps.disabled}),
+			...(mountProps.searchTerm === undefined ? {} : {initialSearchTerm: mountProps.searchTerm}),
+			...(mountProps.selectedIds === undefined ? {} : {initialSelectedIds: mountProps.selectedIds}),
+			scopes: mountProps.scopes,
 			onSearch: async (term, selectedScopeIds) => {
 				await onSearchRef.current(term, selectedScopeIds);
 			},
@@ -48,15 +52,13 @@ export const ScopedSearchBar = forwardRef<ScopedSearchBarInstance, ScopedSearchB
 
 		const instance = new NativeScopedSearchBar(host, options);
 		instanceRef.current = instance;
-		setForwardedRef(ref, instance);
+		setForwardedRef(mountedRef, instance);
 
 		return (): void => {
 			instanceRef.current = null;
-			setForwardedRef(ref, null);
+			setForwardedRef(mountedRef, null);
 			instance.destroy();
 		};
-		// Mount-only options are intentionally captured once. Mutable props are synced below through native setters.
-		// oxlint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {
