@@ -1,3 +1,9 @@
+# [0.6.0](https://github.com/doberkofler/scoped-search-bar/compare/v0.5.1...v0.6.0) (2026-08-19)
+
+### Bug Fixes
+
+* update forwarded ref without recreating the native instance ([298ccda](https://github.com/doberkofler/scoped-search-bar/commit/298ccda53a537927028c611a74b4b1dcbc81489d))
+
 ## [0.5.1](https://github.com/doberkofler/scoped-search-bar/compare/v0.5.0...v0.5.1) (2026-08-19)
 
 # [0.5.0](https://github.com/doberkofler/scoped-search-bar/compare/v0.4.1...v0.5.0) (2026-08-18)
