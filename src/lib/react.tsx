@@ -30,7 +30,8 @@ export const ScopedSearchBar = forwardRef<ScopedSearchBarInstance, ScopedSearchB
 
 	useEffect((): void => {
 		onSearchRef.current = onSearch;
-	}, [onSearch]);
+		forwardedRef.current = ref;
+	});
 
 	useEffect(() => {
 		const host = hostRef.current;
@@ -60,6 +61,13 @@ export const ScopedSearchBar = forwardRef<ScopedSearchBarInstance, ScopedSearchB
 			instance.destroy();
 		};
 	}, []);
+
+	useEffect(() => {
+		setForwardedRef(ref, instanceRef.current);
+		return (): void => {
+			setForwardedRef(ref, null);
+		};
+	}, [ref]);
 
 	useEffect(() => {
 		instanceRef.current?.setScopes(scopes);

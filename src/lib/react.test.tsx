@@ -82,4 +82,17 @@ describe('ScopedSearchBar React adapter', () => {
 
 		expect(ref.current).toBeNull();
 	});
+
+	it('updates the forwarded ref without recreating the native instance', () => {
+		const firstRef = createRef<ScopedSearchBarInstance | null>();
+		const secondRef = createRef<ScopedSearchBarInstance | null>();
+
+		renderComponent({ref: firstRef});
+		const instance = firstRef.current;
+
+		renderComponent({ref: secondRef});
+
+		expect(firstRef.current).toBeNull();
+		expect(secondRef.current).toBe(instance);
+	});
 });
