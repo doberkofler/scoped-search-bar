@@ -1,3 +1,9 @@
+# [0.7.0](https://github.com/doberkofler/scoped-search-bar/compare/v0.6.0...v0.7.0) (2026-08-20)
+
+### Bug Fixes
+
+* add vitest ignore ([666f230](https://github.com/doberkofler/scoped-search-bar/commit/666f23019aec6511c0da36bfef23b6c3973d983f))
+
 # [0.6.0](https://github.com/doberkofler/scoped-search-bar/compare/v0.5.1...v0.6.0) (2026-08-19)
 
 ### Bug Fixes
