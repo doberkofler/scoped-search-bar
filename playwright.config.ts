@@ -12,7 +12,7 @@ export default defineConfig({
 	workers: isCi ? 1 : undefined,
 	reporter: 'html',
 	use: {
-		baseURL: 'http://localhost:4173',
+		baseURL: 'http://localhost:4183',
 		trace: 'on-first-retry',
 	},
 	projects: [
@@ -23,7 +23,7 @@ export default defineConfig({
 	],
 	webServer: {
 		command: 'pnpm run build && pnpm run start',
-		url: 'http://localhost:4173',
+		url: 'http://localhost:4183',
 		reuseExistingServer: !isCi,
 	},
 });
