@@ -1,3 +1,5 @@
+## [1.0.1](https://github.com/doberkofler/scoped-search-bar/compare/v1.0.0...v1.0.1) (2026-10-02)
+
 # [1.0.0](https://github.com/doberkofler/scoped-search-bar/compare/v0.7.5...v1.0.0) (2026-09-26)
 
 ## [0.7.5](https://github.com/doberkofler/scoped-search-bar/compare/v0.7.4...v0.7.5) (2026-09-23)
