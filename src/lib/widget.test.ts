@@ -57,7 +57,7 @@ describe('ScopedSearchBar', () => {
 		expect(document.querySelector<HTMLButtonElement>('.scoped-search-bar__scope-chip')?.textContent).toBe('1 Area');
 		expect(document.querySelector<HTMLButtonElement>('.scoped-search-bar__scope-chip')?.getAttribute('aria-label')).toBe('Pick filters');
 		expect(document.querySelector<HTMLButtonElement>('.scoped-search-bar__scope-chip')?.getAttribute('aria-controls')).toBe('global-search-menu');
-		expect(document.querySelector<HTMLButtonElement>('.scoped-search-bar__clear-scopes')?.getAttribute('aria-label')).toBe('Remove filters');
+		expect(document.querySelector('.scoped-search-bar__clear-scopes')).toBeNull();
 		expect(document.querySelector<HTMLButtonElement>('.scoped-search-bar__submit')?.textContent).toBe('Go');
 		expect(document.querySelector<HTMLDivElement>('.scoped-search-bar__menu')?.style.maxHeight).toBe('120px');
 	});
@@ -103,27 +103,40 @@ describe('ScopedSearchBar', () => {
 		document.querySelector<HTMLButtonElement>('.scoped-search-bar__scope-chip')?.click();
 
 		expect(document.querySelector<HTMLDivElement>('.scoped-search-bar__menu')?.hidden).toBe(false);
-		document.querySelector<HTMLButtonElement>('[data-scope-id="northeast"]')?.click();
+		const northeast = document.querySelector<HTMLButtonElement>('[data-scope-id="northeast"]');
+		northeast?.focus();
+		northeast?.click();
 
 		expect(instance.getSelectedIds()).toStrictEqual(['west-coast', 'northeast']);
 		expect(document.querySelector('.scoped-search-bar__scope-chip')?.textContent).toBe('2 Areas');
 		expect(document.querySelector('[data-scope-id="northeast"]')?.getAttribute('aria-checked')).toBe('true');
+		expect(document.querySelector<HTMLDivElement>('.scoped-search-bar__menu')?.hidden).toBe(false);
+		expect(document.activeElement).toBe(northeast);
 
 		document.querySelector<HTMLButtonElement>('[data-scope-id="west-coast"]')?.click();
 		expect(instance.getSelectedIds()).toStrictEqual(['northeast']);
+		expect(document.querySelector<HTMLDivElement>('.scoped-search-bar__menu')?.hidden).toBe(false);
 	});
 
-	it('closes the menu on outside click and input Escape', () => {
-		const instance = mount();
+	it('closes the menu without reverting selection changes', () => {
+		const instance = mount({initialSelectedIds: ['west-coast']});
 		instance.openMenu();
 		expect(document.querySelector<HTMLDivElement>('.scoped-search-bar__menu')?.hidden).toBe(false);
+		document.querySelector<HTMLButtonElement>('[data-scope-id="northeast"]')?.click();
 
 		document.body.dispatchEvent(new MouseEvent('click', {bubbles: true}));
 		expect(document.querySelector<HTMLDivElement>('.scoped-search-bar__menu')?.hidden).toBe(true);
+		expect(instance.getSelectedIds()).toStrictEqual(['west-coast', 'northeast']);
 
 		instance.openMenu();
 		document.querySelector<HTMLInputElement>('.scoped-search-bar__input')?.dispatchEvent(new KeyboardEvent('keydown', {key: 'Escape', bubbles: true}));
 		expect(document.querySelector<HTMLDivElement>('.scoped-search-bar__menu')?.hidden).toBe(true);
+
+		const chip = document.querySelector<HTMLButtonElement>('.scoped-search-bar__scope-chip');
+		chip?.click();
+		chip?.click();
+		expect(document.querySelector<HTMLDivElement>('.scoped-search-bar__menu')?.hidden).toBe(true);
+		expect(instance.getSelectedIds()).toStrictEqual(['west-coast', 'northeast']);
 	});
 
 	it('supports menu keyboard navigation', () => {
@@ -131,24 +144,42 @@ describe('ScopedSearchBar', () => {
 		const chip = document.querySelector<HTMLButtonElement>('.scoped-search-bar__scope-chip');
 		chip?.dispatchEvent(new KeyboardEvent('keydown', {key: 'ArrowDown', bubbles: true}));
 
-		const items = [...document.querySelectorAll<HTMLButtonElement>('.scoped-search-bar__menu-item')];
-		expect(document.activeElement).toBe(items[0]);
+		const commands = [...document.querySelectorAll<HTMLButtonElement>('.scoped-search-bar__menu-command')];
+		expect(document.activeElement).toBe(commands[0]);
 
-		items[0]?.dispatchEvent(new KeyboardEvent('keydown', {key: 'ArrowUp', bubbles: true}));
-		expect(document.activeElement).toBe(items.at(-1));
+		commands[0]?.dispatchEvent(new KeyboardEvent('keydown', {key: 'ArrowUp', bubbles: true}));
+		expect(document.activeElement).toBe(commands.at(-1));
 
-		items.at(-1)?.dispatchEvent(new KeyboardEvent('keydown', {key: 'ArrowDown', bubbles: true}));
-		expect(document.activeElement).toBe(items[0]);
+		commands.at(-1)?.dispatchEvent(new KeyboardEvent('keydown', {key: 'ArrowDown', bubbles: true}));
+		expect(document.activeElement).toBe(commands[0]);
 
-		items[0]?.dispatchEvent(new KeyboardEvent('keydown', {key: 'Escape', bubbles: true}));
+		commands[0]?.dispatchEvent(new KeyboardEvent('keydown', {key: 'Escape', bubbles: true}));
 		expect(document.activeElement).toBe(chip);
 		expect(document.querySelector<HTMLDivElement>('.scoped-search-bar__menu')?.hidden).toBe(true);
 	});
 
-	it('clears selected scopes with the delete action', () => {
+	it('selects and unselects all scopes without closing the menu', () => {
+		const instance = mount({initialSelectedIds: ['west-coast', 'europe']});
+		instance.openMenu();
+
+		document.querySelector<HTMLButtonElement>('[data-action="select-all"]')?.click();
+
+		expect(instance.getSelectedIds()).toStrictEqual(SCOPES.map((scope) => scope.id));
+		expect(document.querySelectorAll('[aria-checked="true"]')).toHaveLength(SCOPES.length);
+		expect(document.querySelector<HTMLDivElement>('.scoped-search-bar__menu')?.hidden).toBe(false);
+
+		document.querySelector<HTMLButtonElement>('[data-action="unselect-all"]')?.click();
+
+		expect(instance.getSelectedIds()).toStrictEqual([]);
+		expect(document.querySelectorAll('[aria-checked="true"]')).toHaveLength(0);
+		expect(document.querySelector('.scoped-search-bar__scope-chip')?.textContent).toBe('All Areas');
+		expect(document.querySelector<HTMLDivElement>('.scoped-search-bar__menu')?.hidden).toBe(false);
+	});
+
+	it('clears selected scopes through the public API', () => {
 		const instance = mount({initialSelectedIds: ['west-coast', 'europe']});
 
-		document.querySelector<HTMLButtonElement>('.scoped-search-bar__clear-scopes')?.click();
+		instance.clearScopes();
 
 		expect(instance.getSelectedIds()).toStrictEqual([]);
 		expect(document.querySelector('.scoped-search-bar__scope-chip')?.textContent).toBe('All Areas');

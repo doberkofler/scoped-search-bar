@@ -136,11 +136,13 @@ export class ScopedSearchBar implements ScopedSearchBarInstance {
 	public readonly element: HTMLElement;
 
 	readonly #anchorButton: HTMLButtonElement;
-	readonly #clearButton: HTMLButtonElement;
 	readonly #input: HTMLInputElement;
 	readonly #menu: HTMLDivElement;
+	readonly #menuItems: HTMLDivElement;
 	readonly #options: ScopedSearchBarOptions;
 	readonly #searchButton: HTMLButtonElement;
+	readonly #selectAllButton: HTMLButtonElement;
+	readonly #unselectAllButton: HTMLButtonElement;
 	#scopes: SearchScope[];
 	#selectedIds: string[];
 	#term: string;
@@ -191,14 +193,6 @@ export class ScopedSearchBar implements ScopedSearchBarInstance {
 		this.#anchorButton.setAttribute('aria-expanded', 'false');
 		this.#anchorButton.setAttribute('aria-label', options.scopeSelectorLabel ?? DEFAULT_SCOPED_SEARCH_BAR_OPTIONS.scopeSelectorLabel);
 
-		this.#clearButton = document.createElement('button');
-		this.#clearButton.className = 'scoped-search-bar__clear-scopes';
-		this.#clearButton.type = 'button';
-		this.#clearButton.setAttribute('aria-label', options.clearScopesLabel ?? DEFAULT_SCOPED_SEARCH_BAR_OPTIONS.clearScopesLabel);
-		this.#clearButton.append(
-			createSvgIcon('M6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12 19 6.4 17.6 5 12 10.6 6.4 5Z', 'scoped-search-bar__clear-icon'),
-		);
-
 		this.#searchButton = document.createElement('button');
 		this.#searchButton.className = 'scoped-search-bar__submit';
 		this.#searchButton.type = 'button';
@@ -210,7 +204,7 @@ export class ScopedSearchBar implements ScopedSearchBarInstance {
 			document.createTextNode(options.searchButtonLabel ?? DEFAULT_SCOPED_SEARCH_BAR_OPTIONS.searchButtonLabel),
 		);
 
-		actions.append(this.#anchorButton, this.#clearButton, this.#searchButton);
+		actions.append(this.#anchorButton, this.#searchButton);
 		control.append(searchIcon, this.#input, actions);
 
 		this.#menu = document.createElement('div');
@@ -220,10 +214,33 @@ export class ScopedSearchBar implements ScopedSearchBarInstance {
 		this.#menu.hidden = true;
 		this.#menu.style.maxHeight = `${options.menuMaxHeight ?? DEFAULT_SCOPED_SEARCH_BAR_OPTIONS.menuMaxHeight}px`;
 
+		const bulkActions = document.createElement('div');
+		bulkActions.className = 'scoped-search-bar__menu-bulk-actions';
+		bulkActions.role = 'group';
+
+		this.#selectAllButton = this.#createMenuAction('Select all', () => {
+			this.#selectedIds = this.#scopes.map((scope) => scope.id);
+			this.#renderSelectionState();
+		});
+		this.#selectAllButton.dataset['action'] = 'select-all';
+
+		this.#unselectAllButton = this.#createMenuAction('Unselect all', () => {
+			this.#selectedIds = [];
+			this.#renderSelectionState();
+		});
+		this.#unselectAllButton.dataset['action'] = 'unselect-all';
+		bulkActions.append(this.#selectAllButton, this.#unselectAllButton);
+
+		this.#menuItems = document.createElement('div');
+		this.#menuItems.className = 'scoped-search-bar__menu-items';
+		this.#menuItems.role = 'group';
+		this.#menu.append(bulkActions, this.#menuItems);
+
 		this.element.append(control, this.#menu);
 		container.replaceChildren(this.element);
 
 		this.#bindEvents();
+		this.#renderMenuItems();
 		this.#render();
 	}
 
@@ -284,6 +301,7 @@ export class ScopedSearchBar implements ScopedSearchBarInstance {
 		this.#assertActive();
 		this.#scopes = uniqueScopes(scopes);
 		this.#selectedIds = normalizeIds(this.#selectedIds, this.#scopes);
+		this.#renderMenuItems();
 		this.#render();
 	}
 
@@ -340,6 +358,11 @@ export class ScopedSearchBar implements ScopedSearchBarInstance {
 			this.openMenu();
 		});
 		this.#anchorButton.addEventListener('keydown', (event) => {
+			if (event.key === 'Escape' && this.#isMenuOpen) {
+				event.preventDefault();
+				this.closeMenu();
+				return;
+			}
 			if (event.key === 'ArrowDown') {
 				event.preventDefault();
 				this.openMenu();
@@ -347,10 +370,6 @@ export class ScopedSearchBar implements ScopedSearchBarInstance {
 			}
 		});
 
-		this.#clearButton.addEventListener('click', (event) => {
-			event.stopPropagation();
-			this.clearScopes();
-		});
 		this.#searchButton.addEventListener('click', () => {
 			void this.search();
 		});
@@ -358,7 +377,7 @@ export class ScopedSearchBar implements ScopedSearchBarInstance {
 		document.addEventListener(
 			'click',
 			(event) => {
-				if (!this.element.contains(event.target as Node)) {
+				if (!event.composedPath().includes(this.element)) {
 					this.closeMenu();
 				}
 			},
@@ -367,36 +386,28 @@ export class ScopedSearchBar implements ScopedSearchBarInstance {
 	}
 
 	#render(): void {
-		this.#renderChipLabel();
-		this.#renderMenuItems();
-		this.#renderDisabledState();
+		this.#renderSelectionState();
 		this.#renderMenuState();
 	}
 
 	#renderChipLabel(): void {
 		const formatter = this.#options.scopeLabel ?? defaultScopeLabel;
 		this.#anchorButton.textContent = formatter({count: this.#selectedIds.length, total: this.#scopes.length, selectedIds: [...this.#selectedIds]});
-		this.#clearButton.hidden = this.#selectedIds.length === 0;
 	}
 
 	#renderMenuItems(): void {
-		this.#menu.replaceChildren();
-		for (const [index, scope] of this.#scopes.entries()) {
+		this.#menuItems.replaceChildren();
+		for (const scope of this.#scopes) {
 			const item = document.createElement('button');
-			item.className = 'scoped-search-bar__menu-item';
+			item.className = 'scoped-search-bar__menu-command scoped-search-bar__menu-item';
 			item.type = 'button';
 			item.role = 'menuitemcheckbox';
 			item.dataset['scopeId'] = scope.id;
-			item.setAttribute('aria-checked', this.#selectedIds.includes(scope.id) ? 'true' : 'false');
 			item.tabIndex = -1;
 
 			const checkbox = document.createElement('span');
 			checkbox.className = 'scoped-search-bar__checkbox';
 			checkbox.setAttribute('aria-hidden', 'true');
-			if (this.#selectedIds.includes(scope.id)) {
-				checkbox.append(createSvgIcon('M8.6 15.6 4.4 11.4 3 12.8 8.6 18.4 21 6 19.6 4.6 8.6 15.6Z', 'scoped-search-bar__check-icon'));
-			}
-
 			const label = document.createElement('span');
 			label.className = 'scoped-search-bar__menu-label';
 			label.textContent = scope.label;
@@ -406,10 +417,24 @@ export class ScopedSearchBar implements ScopedSearchBarInstance {
 				this.#toggleScope(scope.id);
 			});
 			item.addEventListener('keydown', (event) => {
-				this.#handleMenuKeydown(event, index);
+				this.#handleMenuKeydown(event, item);
 			});
-			this.#menu.append(item);
+			this.#menuItems.append(item);
 		}
+	}
+
+	#renderSelectionState(): void {
+		this.#renderChipLabel();
+		for (const item of this.#menuItems.querySelectorAll<HTMLButtonElement>('.scoped-search-bar__menu-item')) {
+			const id = item.dataset['scopeId'];
+			const selected = id !== undefined && this.#selectedIds.includes(id);
+			item.setAttribute('aria-checked', selected ? 'true' : 'false');
+			const checkbox = item.querySelector('.scoped-search-bar__checkbox');
+			checkbox?.replaceChildren(
+				...(selected ? [createSvgIcon('M8.6 15.6 4.4 11.4 3 12.8 8.6 18.4 21 6 19.6 4.6 8.6 15.6Z', 'scoped-search-bar__check-icon')] : []),
+			);
+		}
+		this.#renderDisabledState();
 	}
 
 	#renderDisabledState(): void {
@@ -418,8 +443,12 @@ export class ScopedSearchBar implements ScopedSearchBarInstance {
 		this.element.classList.toggle('scoped-search-bar--searching', this.#isSearching);
 		this.#input.disabled = disabled;
 		this.#anchorButton.disabled = disabled;
-		this.#clearButton.disabled = disabled;
 		this.#searchButton.disabled = disabled;
+		this.#selectAllButton.disabled = disabled;
+		this.#unselectAllButton.disabled = disabled;
+		for (const item of this.#menuItems.querySelectorAll<HTMLButtonElement>('.scoped-search-bar__menu-item')) {
+			item.disabled = disabled;
+		}
 		this.#searchButton.replaceChildren(
 			createSvgIcon(
 				'M9.5 3a6.5 6.5 0 0 1 5.17 10.44l4.45 4.44-1.42 1.42-4.44-4.45A6.5 6.5 0 1 1 9.5 3Zm0 2a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9Z',
@@ -445,10 +474,24 @@ export class ScopedSearchBar implements ScopedSearchBarInstance {
 
 	#toggleScope(id: string): void {
 		this.#selectedIds = this.#selectedIds.includes(id) ? this.#selectedIds.filter((selectedId) => selectedId !== id) : [...this.#selectedIds, id];
-		this.#render();
+		this.#renderSelectionState();
 	}
 
-	#handleMenuKeydown(event: KeyboardEvent, index: number): void {
+	#createMenuAction(label: string, action: () => void): HTMLButtonElement {
+		const button = document.createElement('button');
+		button.className = 'scoped-search-bar__menu-command scoped-search-bar__menu-action';
+		button.type = 'button';
+		button.role = 'menuitem';
+		button.tabIndex = -1;
+		button.textContent = label;
+		button.addEventListener('click', action);
+		button.addEventListener('keydown', (event) => {
+			this.#handleMenuKeydown(event, button);
+		});
+		return button;
+	}
+
+	#handleMenuKeydown(event: KeyboardEvent, currentItem: HTMLButtonElement): void {
 		if (event.key === 'Escape') {
 			event.preventDefault();
 			this.closeMenu();
@@ -457,22 +500,32 @@ export class ScopedSearchBar implements ScopedSearchBarInstance {
 		}
 		if (event.key === 'ArrowDown') {
 			event.preventDefault();
-			this.#focusMenuItem(index + 1);
+			this.#focusMenuItemAfter(currentItem, 1);
 			return;
 		}
 		if (event.key === 'ArrowUp') {
 			event.preventDefault();
-			this.#focusMenuItem(index - 1);
+			this.#focusMenuItemAfter(currentItem, -1);
 		}
 	}
 
 	#focusMenuItem(index: number): void {
-		const items = [...this.#menu.querySelectorAll<HTMLButtonElement>('.scoped-search-bar__menu-item')];
+		const items = this.#getEnabledMenuItems();
 		if (items.length === 0) {
 			return;
 		}
 		const normalizedIndex = (index + items.length) % items.length;
 		items[normalizedIndex]?.focus();
+	}
+
+	#focusMenuItemAfter(currentItem: HTMLButtonElement, offset: number): void {
+		const items = this.#getEnabledMenuItems();
+		const currentIndex = items.indexOf(currentItem);
+		this.#focusMenuItem(currentIndex + offset);
+	}
+
+	#getEnabledMenuItems(): HTMLButtonElement[] {
+		return [...this.#menu.querySelectorAll<HTMLButtonElement>('.scoped-search-bar__menu-command:not(:disabled)')];
 	}
 
 	#assertActive(): void {

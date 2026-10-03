@@ -8,7 +8,7 @@ A dependency-free TypeScript search component that combines a text input, a mult
 
 - Native TypeScript, HTML, and CSS. No React, MUI, or runtime framework dependency.
 - Strongly typed public API with an instance lifecycle.
-- Multi-select scope menu with keyboard navigation and ARIA state.
+- Multi-select scope menu with persistent selection, bulk actions, keyboard navigation, and ARIA state.
 - Async `onSearch` support with built-in pending/disabled state.
 - Enter-key and button submission.
 - Scoped CSS classes and custom properties for theming.
@@ -69,6 +69,8 @@ export function Search() {
 ```
 
 The adapter creates the native component on mount and destroys it on unmount. Mount-time options mirror `ScopedSearchBarOptions`; `scopes`, `disabled`, `searchTerm`, and `selectedIds` are synchronized after mount through native setters.
+
+Scope changes apply immediately and keep the menu open. Use **Select all** or **Unselect all** for bulk changes. Escape, an outside click, or clicking the scope chip closes the menu without reverting changes. An empty selection retains the default **All Areas** meaning.
 
 ## API
 

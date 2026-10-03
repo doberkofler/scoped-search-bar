@@ -34,8 +34,8 @@ Open the local Vite URL shown in the terminal to view the demo.
 Use this quick scenario when validating the demo behavior on a hosted page:
 
 1. Open the page and confirm `Event Log` starts with `demo initialized`.
-2. Open the scope chip menu and toggle `Midwest`; verify the chip count updates.
-3. Clear scopes, type a query, click `Search`, and verify the event log records the term and `(all)` scopes.
+2. Open the scope chip menu and toggle `Midwest`; verify the chip count updates and the menu stays open.
+3. Click `Unselect all`, type a query, click `Search`, and verify the event log records the term and `(all)` scopes.
 4. Press Enter in the input and verify the button enters the pending state.
 5. Toggle disabled mode and theme mode; verify both actions are reflected in the UI and log.
 

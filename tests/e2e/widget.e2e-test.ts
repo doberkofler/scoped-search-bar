@@ -21,11 +21,14 @@ test.describe('Widget demo', () => {
 
 		await expect(page.locator('[data-scope-id="midwest"]')).toHaveAttribute('aria-checked', 'true');
 		await expect(page.locator('.scoped-search-bar__scope-chip')).toHaveText('5 Areas');
+		await expect(page.locator('.scoped-search-bar__menu')).toBeVisible();
 	});
 
-	test('clears scopes and submits from the button', async ({page}) => {
-		await page.locator('.scoped-search-bar__clear-scopes').click();
+	test('unselects all scopes and submits from the button', async ({page}) => {
+		await page.locator('.scoped-search-bar__scope-chip').click();
+		await page.locator('[data-action="unselect-all"]').click();
 		await expect(page.locator('.scoped-search-bar__scope-chip')).toHaveText('All Areas');
+		await expect(page.locator('.scoped-search-bar__menu')).toBeVisible();
 
 		await page.locator('.scoped-search-bar__input').fill('react server components');
 		await page.locator('.scoped-search-bar__submit').click();
@@ -58,5 +61,7 @@ test.describe('Widget demo', () => {
 		await expect(page.locator('.scoped-search-bar')).toBeVisible();
 		await page.locator('.scoped-search-bar__scope-chip').click();
 		await expect(page.locator('.scoped-search-bar__menu')).toBeVisible();
+		await expect(page.locator('[data-action="select-all"]')).toBeVisible();
+		await expect(page.locator('[data-action="unselect-all"]')).toBeVisible();
 	});
 });

@@ -14,7 +14,6 @@
 	--scoped-search-bar-focus: 0 0 0 3px rgb(8, 118, 216, 0.22);
 	--scoped-search-bar-radius: 999px;
 	--scoped-search-bar-icon: #7a8492;
-	--scoped-search-bar-icon-secondary: #4f647a;
 	--scoped-search-bar-submit-text: #fff;
 	--scoped-search-bar-submit-shadow: 0 8px 18px rgb(10, 79, 143, 0.28);
 	--scoped-search-bar-checkbox-border: #707987;
@@ -75,8 +74,8 @@
 }
 
 .scoped-search-bar__scope-chip,
-.scoped-search-bar__clear-scopes,
 .scoped-search-bar__submit,
+.scoped-search-bar__menu-action,
 .scoped-search-bar__menu-item {
 	font: inherit;
 }
@@ -94,29 +93,6 @@
 
 .scoped-search-bar__scope-chip:hover {
 	background: var(--scoped-search-bar-primary-soft-hover);
-}
-
-.scoped-search-bar__clear-scopes {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	width: 26px;
-	height: 26px;
-	margin-left: -18px;
-	border: 0;
-	border-radius: 999px;
-	background: transparent;
-	cursor: pointer;
-}
-
-.scoped-search-bar__clear-scopes[hidden] {
-	display: none;
-}
-
-.scoped-search-bar__clear-icon {
-	width: 16px;
-	height: 16px;
-	fill: var(--scoped-search-bar-icon-secondary);
 }
 
 .scoped-search-bar__submit {
@@ -150,13 +126,50 @@
 	top: calc(100% + 10px);
 	right: 120px;
 	z-index: 20;
+	display: flex;
+	flex-direction: column;
 	min-width: 220px;
-	overflow-y: auto;
-	padding: 10px 0;
+	overflow: hidden;
 	background: var(--scoped-search-bar-bg);
 	border: 1px solid var(--scoped-search-bar-border-muted);
 	border-radius: 8px;
 	box-shadow: var(--scoped-search-bar-shadow);
+}
+
+.scoped-search-bar__menu[hidden] {
+	display: none;
+}
+
+.scoped-search-bar__menu-bulk-actions {
+	display: flex;
+	flex: 0 0 auto;
+	gap: 8px;
+	padding: 10px;
+	border-bottom: 1px solid var(--scoped-search-bar-border-muted);
+}
+
+.scoped-search-bar__menu-action {
+	flex: 1 1 0;
+	padding: 7px 10px;
+	border: 0;
+	border-radius: 6px;
+	color: var(--scoped-search-bar-primary);
+	background: var(--scoped-search-bar-bg-muted);
+	font-size: 14px;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.scoped-search-bar__menu-action:hover,
+.scoped-search-bar__menu-action:focus-visible {
+	background: var(--scoped-search-bar-primary-soft);
+	outline: 0;
+}
+
+.scoped-search-bar__menu-items {
+	min-height: 0;
+	overflow-y: auto;
+	padding: 6px 0;
 }
 
 .scoped-search-bar__menu-item {
@@ -206,8 +219,8 @@
 }
 
 .scoped-search-bar--disabled .scoped-search-bar__scope-chip,
-.scoped-search-bar--disabled .scoped-search-bar__clear-scopes,
-.scoped-search-bar--disabled .scoped-search-bar__submit {
+.scoped-search-bar--disabled .scoped-search-bar__submit,
+.scoped-search-bar--disabled .scoped-search-bar__menu-command {
 	cursor: not-allowed;
 }
 
@@ -225,7 +238,6 @@
 	--scoped-search-bar-shadow: 0 14px 32px rgb(0, 0, 0, 0.4);
 	--scoped-search-bar-focus: 0 0 0 3px rgb(91, 155, 213, 0.3);
 	--scoped-search-bar-icon: #8b8fa3;
-	--scoped-search-bar-icon-secondary: #8b8fa3;
 	--scoped-search-bar-submit-text: #e2e4e9;
 	--scoped-search-bar-submit-shadow: 0 8px 18px rgb(0, 0, 0, 0.45);
 	--scoped-search-bar-checkbox-border: #4a4d66;
@@ -248,7 +260,6 @@
 		--scoped-search-bar-shadow: 0 14px 32px rgb(0, 0, 0, 0.4);
 		--scoped-search-bar-focus: 0 0 0 3px rgb(91, 155, 213, 0.3);
 		--scoped-search-bar-icon: #8b8fa3;
-		--scoped-search-bar-icon-secondary: #8b8fa3;
 		--scoped-search-bar-submit-text: #e2e4e9;
 		--scoped-search-bar-submit-shadow: 0 8px 18px rgb(0, 0, 0, 0.45);
 		--scoped-search-bar-checkbox-border: #4a4d66;
