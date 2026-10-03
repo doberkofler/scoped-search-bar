@@ -1,3 +1,9 @@
+# [1.1.0](https://github.com/doberkofler/scoped-search-bar/compare/v1.0.1...v1.1.0) (2026-10-03)
+
+### Features
+
+* improve scope selection UX ([b7d6e6e](https://github.com/doberkofler/scoped-search-bar/commit/b7d6e6e9ad1b4e9cc55123042db05d6050cc6a85))
+
 ## [1.0.1](https://github.com/doberkofler/scoped-search-bar/compare/v1.0.0...v1.0.1) (2026-10-02)
 
 # [1.0.0](https://github.com/doberkofler/scoped-search-bar/compare/v0.7.5...v1.0.0) (2026-09-26)
