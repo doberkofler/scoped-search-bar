@@ -38,6 +38,10 @@ export type ScopedSearchBarOptions = {
 	readonly scopeSelectorLabel?: string;
 	/** Accessible label for the scope clear action. */
 	readonly clearScopesLabel?: string;
+	/** Text shown in the bulk select-all action. */
+	readonly selectAllLabel?: string;
+	/** Text shown in the bulk unselect-all action. */
+	readonly unselectAllLabel?: string;
 	/** Formats the selector chip label. */
 	readonly scopeLabel?: ScopeLabelFormatter;
 	/** Disables all interactive controls. */
@@ -71,7 +75,15 @@ export type ScopedSearchBarInstance = {
 export type RequiredVisualOptions = Required<
 	Pick<
 		ScopedSearchBarOptions,
-		'placeholder' | 'inputLabel' | 'searchButtonLabel' | 'searchingButtonLabel' | 'scopeSelectorLabel' | 'clearScopesLabel' | 'menuMaxHeight'
+		| 'placeholder'
+		| 'inputLabel'
+		| 'searchButtonLabel'
+		| 'searchingButtonLabel'
+		| 'scopeSelectorLabel'
+		| 'clearScopesLabel'
+		| 'selectAllLabel'
+		| 'unselectAllLabel'
+		| 'menuMaxHeight'
 	>
 >;
 
@@ -82,6 +94,8 @@ export const DEFAULT_SCOPED_SEARCH_BAR_OPTIONS: RequiredVisualOptions = {
 	searchingButtonLabel: 'Searching...',
 	scopeSelectorLabel: 'Choose search scopes',
 	clearScopesLabel: 'Clear selected scopes',
+	selectAllLabel: 'Select all',
+	unselectAllLabel: 'Unselect all',
 	menuMaxHeight: 320,
 };
 
@@ -218,13 +232,13 @@ export class ScopedSearchBar implements ScopedSearchBarInstance {
 		bulkActions.className = 'scoped-search-bar__menu-bulk-actions';
 		bulkActions.role = 'group';
 
-		this.#selectAllButton = this.#createMenuAction('Select all', () => {
+		this.#selectAllButton = this.#createMenuAction(options.selectAllLabel ?? DEFAULT_SCOPED_SEARCH_BAR_OPTIONS.selectAllLabel, () => {
 			this.#selectedIds = this.#scopes.map((scope) => scope.id);
 			this.#renderSelectionState();
 		});
 		this.#selectAllButton.dataset['action'] = 'select-all';
 
-		this.#unselectAllButton = this.#createMenuAction('Unselect all', () => {
+		this.#unselectAllButton = this.#createMenuAction(options.unselectAllLabel ?? DEFAULT_SCOPED_SEARCH_BAR_OPTIONS.unselectAllLabel, () => {
 			this.#selectedIds = [];
 			this.#renderSelectionState();
 		});

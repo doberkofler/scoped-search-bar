@@ -48,6 +48,8 @@ describe('ScopedSearchBar', () => {
 			searchingButtonLabel: 'Running...',
 			scopeSelectorLabel: 'Pick filters',
 			clearScopesLabel: 'Remove filters',
+			selectAllLabel: 'Everything',
+			unselectAllLabel: 'Nothing',
 			menuMaxHeight: 120,
 		});
 
@@ -59,6 +61,8 @@ describe('ScopedSearchBar', () => {
 		expect(document.querySelector<HTMLButtonElement>('.scoped-search-bar__scope-chip')?.getAttribute('aria-controls')).toBe('global-search-menu');
 		expect(document.querySelector('.scoped-search-bar__clear-scopes')).toBeNull();
 		expect(document.querySelector<HTMLButtonElement>('.scoped-search-bar__submit')?.textContent).toBe('Go');
+		expect(document.querySelector<HTMLButtonElement>('[data-action="select-all"]')?.textContent).toBe('Everything');
+		expect(document.querySelector<HTMLButtonElement>('[data-action="unselect-all"]')?.textContent).toBe('Nothing');
 		expect(document.querySelector<HTMLDivElement>('.scoped-search-bar__menu')?.style.maxHeight).toBe('120px');
 	});
 

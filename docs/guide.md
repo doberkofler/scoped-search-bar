@@ -41,6 +41,8 @@ const instance = new ScopedSearchBar(document.querySelector('#search')!, {
 | `searchingButtonLabel` | `string` | `Searching...` | Pending submit button label. |
 | `scopeSelectorLabel` | `string` | `Choose search scopes` | Scope chip ARIA label. |
 | `clearScopesLabel` | `string` | `Clear selected scopes` | Clear button ARIA label. |
+| `selectAllLabel` | `string` | `Select all` | Bulk select-all action label. |
+| `unselectAllLabel` | `string` | `Unselect all` | Bulk unselect-all action label. |
 | `scopeLabel` | `ScopeLabelFormatter` | built-in `All Areas` / `N Areas` | Custom chip label formatter. |
 | `disabled` | `boolean` | `false` | Disables all controls. |
 | `className` | `string` | `undefined` | Extra class added to the root. |
