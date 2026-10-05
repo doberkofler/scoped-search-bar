@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/doberkofler/scoped-search-bar/compare/v1.1.0...v1.2.0) (2026-10-05)
+
+### Bug Fixes
+
+* make bulk select-all labels configurable ([b256ce1](https://github.com/doberkofler/scoped-search-bar/commit/b256ce18ee82f6c884871920d238ed3870d333ab))
+* strengthen bulk action label color on hover and focus ([5e5f9a3](https://github.com/doberkofler/scoped-search-bar/commit/5e5f9a38a398b9e0bd287343ae162e1a16b09628))
+
 # [1.1.0](https://github.com/doberkofler/scoped-search-bar/compare/v1.0.1...v1.1.0) (2026-10-03)
 
 ### Features
