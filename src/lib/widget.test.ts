@@ -85,6 +85,44 @@ describe('ScopedSearchBar', () => {
 		expect(instance.getSelectedIds()).toStrictEqual(['south']);
 	});
 
+	it('renders initialSelectedIds as checked checkboxes', () => {
+		mount({initialSelectedIds: ['europe']});
+
+		const europe = document.querySelector<HTMLButtonElement>('[data-scope-id="europe"]');
+		const midwest = document.querySelector<HTMLButtonElement>('[data-scope-id="midwest"]');
+
+		expect(europe?.getAttribute('aria-checked')).toBe('true');
+		expect(europe?.querySelector('.scoped-search-bar__check-icon')).not.toBeNull();
+		expect(midwest?.getAttribute('aria-checked')).toBe('false');
+		expect(midwest?.querySelector('.scoped-search-bar__check-icon')).toBeNull();
+		expect(document.querySelector('.scoped-search-bar__scope-chip')?.textContent).toBe('1 Area');
+	});
+
+	it('updates rendered checkbox state through setSelectedIds and setScopes', () => {
+		const instance = mount({initialSelectedIds: ['west-coast']});
+
+		instance.setSelectedIds(['europe']);
+
+		const westCoast = document.querySelector<HTMLButtonElement>('[data-scope-id="west-coast"]');
+		const europe = document.querySelector<HTMLButtonElement>('[data-scope-id="europe"]');
+		expect(westCoast?.getAttribute('aria-checked')).toBe('false');
+		expect(westCoast?.querySelector('.scoped-search-bar__check-icon')).toBeNull();
+		expect(europe?.getAttribute('aria-checked')).toBe('true');
+		expect(europe?.querySelector('.scoped-search-bar__check-icon')).not.toBeNull();
+		expect(document.querySelector('.scoped-search-bar__scope-chip')?.textContent).toBe('1 Area');
+
+		instance.setSelectedIds([]);
+		expect(document.querySelectorAll('[aria-checked="true"]')).toHaveLength(0);
+		expect(document.querySelector('.scoped-search-bar__scope-chip')?.textContent).toBe('All Areas');
+
+		instance.setSelectedIds(['europe']);
+		instance.setScopes([{id: 'users', label: 'Users'}]);
+
+		expect(instance.getSelectedIds()).toStrictEqual([]);
+		expect(document.querySelector('.scoped-search-bar__check-icon')).toBeNull();
+		expect(document.querySelectorAll('.scoped-search-bar__menu-item')).toHaveLength(1);
+	});
+
 	it('rejects duplicate scope ids', () => {
 		const host = document.createElement('div');
 		container = host;

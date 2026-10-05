@@ -43,6 +43,9 @@ describe('ScopedSearchBar React adapter', () => {
 
 		expect(document.querySelector<HTMLInputElement>('.scoped-search-bar__input')?.value).toBe('react');
 		expect(document.querySelector('.scoped-search-bar__scope-chip')?.textContent).toBe('2 Areas');
+		expect(document.querySelector('[data-scope-id="articles"]')?.getAttribute('aria-checked')).toBe('true');
+		expect(document.querySelector('[data-scope-id="docs"] .scoped-search-bar__check-icon')).not.toBeNull();
+		expect(document.querySelector('[data-scope-id="users"]')?.getAttribute('aria-checked')).toBe('false');
 	});
 
 	it('submits through the latest onSearch callback', async () => {
@@ -67,6 +70,10 @@ describe('ScopedSearchBar React adapter', () => {
 		expect(document.querySelector<HTMLInputElement>('.scoped-search-bar__input')?.value).toBe('docs');
 		expect(document.querySelector('.scoped-search-bar__scope-chip')?.textContent).toBe('1 Area');
 		expect(document.querySelector<HTMLInputElement>('.scoped-search-bar__input')?.disabled).toBe(true);
+		expect(document.querySelector('[data-scope-id="users"]')?.getAttribute('aria-checked')).toBe('true');
+		expect(document.querySelector('[data-scope-id="users"] .scoped-search-bar__check-icon')).not.toBeNull();
+		expect(document.querySelector('[data-scope-id="articles"]')?.getAttribute('aria-checked')).toBe('false');
+		expect(document.querySelector('[data-scope-id="articles"] .scoped-search-bar__check-icon')).toBeNull();
 	});
 
 	it('exposes and clears the native instance ref on unmount', () => {

@@ -10,6 +10,17 @@ test.describe('Widget demo', () => {
 		await expect(page.locator('.scoped-search-bar__input')).toHaveValue('reac...');
 		await expect(page.locator('.scoped-search-bar__scope-chip')).toHaveText('4 Areas');
 		await expect(page.locator('#event-log')).toHaveValue(/demo initialized/u);
+
+		await page.locator('.scoped-search-bar__scope-chip').click();
+		const initiallySelected = ['west-coast', 'northeast', 'international', 'europe'];
+		await Promise.all(
+			initiallySelected.flatMap((id) => [
+				expect(page.locator(`[data-scope-id="${id}"]`)).toHaveAttribute('aria-checked', 'true'),
+				expect(page.locator(`[data-scope-id="${id}"] .scoped-search-bar__check-icon`)).toBeAttached(),
+			]),
+		);
+		await expect(page.locator('[data-scope-id="midwest"]')).toHaveAttribute('aria-checked', 'false');
+		await expect(page.locator('[data-scope-id="midwest"] .scoped-search-bar__check-icon')).toHaveCount(0);
 	});
 
 	test('opens menu and toggles a scope', async ({page}) => {
