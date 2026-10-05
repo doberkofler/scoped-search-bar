@@ -163,6 +163,7 @@
 .scoped-search-bar__menu-action:hover,
 .scoped-search-bar__menu-action:focus-visible {
 	background: var(--scoped-search-bar-primary-soft);
+	color: var(--scoped-search-bar-primary-strong);
 	outline: 0;
 }
 
